@@ -63,7 +63,7 @@ class TxRx {
     }
     
     func send(commend:String){
-        var data = commend.dataUsingEncoding(NSUTF8StringEncoding)!
+        let data = commend.dataUsingEncoding(NSUTF8StringEncoding)!
         outputStream.write(UnsafePointer<UInt8>(data.bytes), maxLength: data.length)
     }
 }
