@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class TxRx {
+class TxRx: NSObject {
     var addr:String;
     var port:Int;
     var inputStream: NSInputStream;

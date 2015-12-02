@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class TxRx {
+class TxRx: NSObject {
     var addr:String;
     var port:Int;
     var inputStream: NSInputStream;
@@ -57,26 +57,26 @@ class TxRx {
         var buffer = [UInt8](count: bufferSize, repeatedValue: 0)
         
         //while(true){
-            if(inputStream.hasBytesAvailable){
-                /* Was trying to read byte by byte
-                inputStream.read(&readByte, maxLength: 1)
-                print("\(Character(UnicodeScalar(readByte))) ", readByte);
-                buffer[counter] = readByte;
-                counter++;
-                if(readByte == 0){
-                    //print("\(Character(UnicodeScalar(readByte)))");
-                    //print(NSString(bytes: buffer, length: buffer.count, encoding: NSUTF8StringEncoding));
-                    print("Get Here!!!");
-                    buffer = [UInt8](count:100, repeatedValue: 0);
-                    counter = 0;
-                }*/
-                let bytesRead = inputStream.read(&buffer, maxLength: bufferSize)
-                if bytesRead >= 0 {
-                    //print(NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding));
-                    let message = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding);
-                    return message! as String;
-                }
+        if(inputStream.hasBytesAvailable){
+            /* Was trying to read byte by byte
+            inputStream.read(&readByte, maxLength: 1)
+            print("\(Character(UnicodeScalar(readByte))) ", readByte);
+            buffer[counter] = readByte;
+            counter++;
+            if(readByte == 0){
+            //print("\(Character(UnicodeScalar(readByte)))");
+            //print(NSString(bytes: buffer, length: buffer.count, encoding: NSUTF8StringEncoding));
+            print("Get Here!!!");
+            buffer = [UInt8](count:100, repeatedValue: 0);
+            counter = 0;
+            }*/
+            let bytesRead = inputStream.read(&buffer, maxLength: bufferSize)
+            if bytesRead >= 0 {
+                //print(NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding));
+                let message = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding);
+                return message! as String;
             }
+        }
         //}
         return "";
     }

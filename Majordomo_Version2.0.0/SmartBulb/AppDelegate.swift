@@ -12,11 +12,12 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    //var test: TxRx?
+    var txrx: TxRx?
+
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        //test = TxRx(input_addr: "10.25.149.163",input_port: 8888);
+        txrx = TxRx(input_addr: "localhost",input_port: 8888);
         return true
     }
 

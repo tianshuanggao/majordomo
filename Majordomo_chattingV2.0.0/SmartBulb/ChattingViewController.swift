@@ -10,7 +10,7 @@ import UIKit
 
 class ChattingViewController: UIViewController, UITextFieldDelegate {
     
-    var txrx :TxRx = TxRx(input_addr: "10.25.149.163",input_port: 8888);
+    let deligate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     
     @IBOutlet weak var send_button: UIButton!
@@ -25,7 +25,7 @@ class ChattingViewController: UIViewController, UITextFieldDelegate {
         let receive_message = NSThread(target:self, selector:"update_message", object:nil)
         receive_message.start();
         
-        txrx.login();
+        deligate.txrx?.login();
     }
 
     
@@ -36,7 +36,7 @@ class ChattingViewController: UIViewController, UITextFieldDelegate {
     
     func update_message(){
         while(true){
-            let message = txrx.start_rx();
+            let message = deligate.txrx!.start_rx();
             if(message != "" && message != "Username:" && message != "Password:  "){
                 //chatting_window.text = message;
                 dispatch_async(dispatch_get_main_queue()) {
@@ -45,6 +45,7 @@ class ChattingViewController: UIViewController, UITextFieldDelegate {
                 }
                 print(message);
             }
+            NSThread .sleepForTimeInterval(0.05);
         }
     }
     
@@ -52,11 +53,11 @@ class ChattingViewController: UIViewController, UITextFieldDelegate {
         //txrx.start_rx();
     }
     @IBAction func send_message(sender: AnyObject) {
-         txrx.send(">" + message_input.text!);
+         deligate.txrx!.send(">" + message_input.text!);
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.view.endEditing(true)
-        txrx.send(">" + message_input.text!);
+        deligate.txrx!.send(">" + message_input.text!);
         clear_input();
         return false
     }
